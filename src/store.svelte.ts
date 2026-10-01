@@ -1,11 +1,19 @@
 import { getContext, setContext } from "svelte";
 import { createTRPC } from "$lib/trpc";
-import { writeDump } from "./services/pocketbase";
+import { fetchDumps, writeDump } from "./services/pocketbase";
 
 class AppStore {
   userinput = $state("");
   trpc = createTRPC();
-  dumpsBeingDisplayed = $state([]);
+  dumpsBeingDisplayed = $state<any[]>([]);
+
+  constructor() {
+    const fetchDumpsFn = async () => {
+      this.dumpsBeingDisplayed = await fetchDumps();
+    };
+
+    fetchDumpsFn();
+  }
 
   async onInputSubmit(e: KeyboardEvent) {
     if (e.key.toLowerCase() == "enter") {

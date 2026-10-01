@@ -4,9 +4,27 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+		<title>Dump — Frictionless Thought Capture</title>
+		<script>
+			try {
+				const saved = localStorage.getItem('dump_theme');
+				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				const isDark = saved === 'dark' || (saved !== 'light' && prefersDark);
+				if (isDark) {
+					document.documentElement.classList.add('dark');
+					document.documentElement.style.colorScheme = 'dark';
+				} else {
+					document.documentElement.classList.remove('dark');
+					document.documentElement.style.colorScheme = 'light';
+				}
+			} catch (e) {}
+		</script>
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover">
+	<body data-sveltekit-preload-data="hover" class="bg-[#f8fafc] text-slate-900 dark:bg-[#090a0f] dark:text-slate-100 min-h-screen antialiased transition-colors duration-300 selection:bg-indigo-500/20 selection:text-indigo-900 dark:selection:bg-indigo-500/30 dark:selection:text-indigo-200">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
