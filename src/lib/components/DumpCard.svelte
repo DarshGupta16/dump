@@ -54,6 +54,12 @@
   }
 
   let isLong = $derived(dump.dump.length > 240);
+
+  let relevancePct = $derived(
+    typeof dump.isRelevant === 'number' && !isNaN(dump.isRelevant)
+      ? Math.max(0, Math.min(100, Math.round(dump.isRelevant * 100)))
+      : null
+  );
 </script>
 
 <article 
@@ -63,6 +69,26 @@
          dark:border-white/[0.08] dark:bg-[#0d1017] dark:shadow-none 
          dark:hover:border-white/20 dark:hover:bg-[#111622] overflow-hidden"
 >
+  <!-- Relevance Score Progress Bar (Shown in Query Mode) -->
+  {#if relevancePct !== null}
+    <div class="mb-3.5 flex flex-col gap-1.5 border-b border-slate-100 pb-3 dark:border-white/[0.05]">
+      <div class="flex items-center justify-between text-xs">
+        <span class="font-mono text-[11px] font-medium tracking-wider uppercase text-slate-500 dark:text-slate-400">
+          Relevance
+        </span>
+        <span class="font-mono text-xs font-semibold {relevancePct >= 75 ? 'text-emerald-600 dark:text-emerald-400' : relevancePct >= 50 ? 'text-sky-600 dark:text-sky-400' : 'text-slate-600 dark:text-slate-400'}">
+          {relevancePct}%
+        </span>
+      </div>
+      <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-white/[0.08]">
+        <div 
+          class="h-full rounded-full transition-all duration-700 ease-out {relevancePct >= 75 ? 'bg-emerald-500' : relevancePct >= 50 ? 'bg-sky-500' : 'bg-slate-400'}"
+          style="width: {relevancePct}%"
+        ></div>
+      </div>
+    </div>
+  {/if}
+
   <!-- Content -->
   <div class="mb-4">
     <div class="text-[15px] font-normal leading-relaxed text-slate-800 dark:text-slate-200 selection:bg-indigo-500/20 dark:selection:bg-indigo-500/30 whitespace-pre-wrap break-words">

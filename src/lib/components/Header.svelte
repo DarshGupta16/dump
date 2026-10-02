@@ -8,13 +8,13 @@
 </script>
 
 <!-- Minimal Top Header -->
-<header class="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4">
-  <div class="font-mono text-sm font-semibold tracking-wider opacity-60">
+<header class="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4 pointer-events-none">
+  <div class="font-mono text-sm font-semibold tracking-wider opacity-60 pointer-events-auto">
     dump
   </div>
 
   <!-- Theme Switcher: System / Light / Dark -->
-  <div class="flex items-center rounded-full border border-slate-200/90 bg-white/80 p-1 shadow-sm backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.04]">
+  <div class="pointer-events-auto flex items-center rounded-full border border-slate-200/90 bg-white/80 p-1 shadow-sm backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.04]">
     <button
       type="button"
       onclick={() => themeStore.setTheme('system')}

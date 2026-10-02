@@ -35,5 +35,7 @@ export const getRelevantDumps = async (
 
   const results = await Promise.all(promises);
   console.log(results);
-  return results.filter((dump) => Math.round(dump.isRelevant) !== 0);
+  return results
+    .filter((dump) => Math.round(dump.isRelevant) !== 0)
+    .sort((a, b) => b.isRelevant - a.isRelevant);
 };
