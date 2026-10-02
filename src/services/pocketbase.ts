@@ -11,3 +11,12 @@ export const writeDump = async (dump: string) => {
     return { status: "failed", error };
   }
 };
+
+export const deleteDump = async (id: string) => {
+  try {
+    await pb.collection("dumps").delete(id);
+    return { status: "succeeded" };
+  } catch (error: any) {
+    return { status: "failed", error };
+  }
+};

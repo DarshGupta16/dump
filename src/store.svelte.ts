@@ -1,6 +1,10 @@
 import { getContext, setContext } from "svelte";
 import { createTRPC } from "$lib/trpc";
-import { fetchDumps, writeDump } from "./services/pocketbase";
+import {
+  fetchDumps,
+  writeDump,
+  deleteDump as pbDeleteDump,
+} from "./services/pocketbase";
 
 class AppStore {
   userinput = $state("");
@@ -73,6 +77,21 @@ class AppStore {
     this.isQuerying = false;
     this.dumpsBeingDisplayed = [...this.allDumpsCache];
     this.userinput = "";
+  }
+
+  async deleteDump(id: string) {
+    const result = await pbDeleteDump(id);
+    if (result.error) {
+      console.log(result.error);
+      return;
+    }
+
+    this.dumpsBeingDisplayed = this.dumpsBeingDisplayed.filter(
+      ({ id: dumpId }) => dumpId != id,
+    );
+    this.allDumpsCache = this.allDumpsCache.filter(
+      ({ id: dumpId }) => dumpId != id,
+    );
   }
 }
 
